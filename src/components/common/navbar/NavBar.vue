@@ -15,7 +15,7 @@
 
 <style scoped>
   .nav-bar {
-    display: fixed;
+    display: flex;
     height: 44px;
     line-height: 44px;
     text-align: center;
