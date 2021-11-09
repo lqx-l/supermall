@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-    <img :src="goodsItem.show.img" alt="">
+  <div class="goods-item" @click="itemClick">
+    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -18,6 +18,17 @@ export default {
       defalut() {
         return []
       }
+    }
+  },
+  methods: {
+    imageLoad() {
+      // console.log('imageLoad')
+      //使用事件总线来向home.vue进行通信
+      this.$bus.$emit('itemImageLoad')
+      // console.log(this.$bus)
+    },
+    itemClick() {
+      this.$router.push('/detail/' + this.goodsItem.iid)
     }
   }
 }
