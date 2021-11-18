@@ -7,3 +7,36 @@ export function  debounce(func, delay) {
     }, delay);
   }
 }
+
+export function formatDate(date, fmt) {
+  //1.获取年份
+  if (/(y+)/.test(fmt)) {
+    //substr:表示截取
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+  //2.
+  //M+ -> 表示的是正则表达式的一个规则：不确定别人传了几个；
+  //正则表达式是用来字符串匹配的， y+：表示一个或多个；y*：表示0个或者多个；y？：表示0个或者1个
+  let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'h+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds()
+  };
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let str = o[k] + '';
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));
+    }
+  }
+  return fmt;
+};
+
+
+
+function padLeftZero (str) {
+
+  return ('00' + str).substr(str.length);
+
+};
